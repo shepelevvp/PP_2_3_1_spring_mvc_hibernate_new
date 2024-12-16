@@ -31,6 +31,8 @@ public class MainApp {
          System.out.println();
       }
 
+      userService.findUserByCar("zil", 146);
+
       context.close();
    }
 }
