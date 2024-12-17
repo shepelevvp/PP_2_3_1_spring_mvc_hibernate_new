@@ -31,7 +31,7 @@ public class MainApp {
          System.out.println();
       }
 
-      userService.findUserByCar("zil", 146);
+      System.out.println(userService.findUserByCar("zil", 146).toString());
 
       context.close();
    }
