@@ -26,8 +26,8 @@ public class UsersController {
         return "users";
     }
 
-    @GetMapping("/{id}")
-    public String show(@PathVariable("id") long id, Model model) {
+    @GetMapping("/show")
+    public String show(@RequestParam("id") long id, Model model) {
     model.addAttribute(userService.show(id));
         return "show";
     }
@@ -38,20 +38,26 @@ public class UsersController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult br) {
+        if (br.hasErrors()) {
+            return "new";
+        }
         userService.save(user);
         return "redirect:/users";
     }
 
-    @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") long id) {
+    @GetMapping("/edit")
+    public String edit(Model model, @RequestParam("id") long id) {
         model.addAttribute("user", userService.show(id));
         return "edit";
     }
 
-    @PostMapping("/{id}")
-    public String update(@ModelAttribute("user") User user, @RequestParam("id") long id) {
-        userService.update(user, id);
+    @PostMapping("/update")
+    public String update(@ModelAttribute("user") @Valid User newUser, BindingResult br, @RequestParam("id") long id) {
+        if (br.hasErrors()) {
+            return "edit";
+        }
+        userService.update(newUser, id);
         return "redirect:/users";
     }
 

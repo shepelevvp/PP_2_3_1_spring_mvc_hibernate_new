@@ -48,11 +48,4 @@ public class UserServiceImp implements UserService {
       userDao.delete(id);
    }
 
-
-//   @Transactional
-//   @Override
-//   public User findUserByCar(String model, int series) {
-//      return userDao.findUserByCar(model, series);
-//   }
-
 }
